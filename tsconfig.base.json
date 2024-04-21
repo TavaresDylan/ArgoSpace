@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@argolight-space/firebase": ["libs/firebase/src/index.ts"]
+      "@argolight-space/firebase": ["libs/firebase/src/index.ts"],
+      "@argolight-space/prisma": ["libs/prisma/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
