@@ -1,13 +1,20 @@
-import express from 'express';
+import express, { type Express } from 'express';
+import 'reflect-metadata';
+import cors from 'cors';
+import { RocketsRouter } from './routes/rockets';
 
 const host = process.env.HOST ?? 'localhost';
 const port = process.env.PORT ? Number(process.env.PORT) : 3000;
 
-const app = express();
+const app: Express = express();
 
-app.get('/', (req, res) => {
-  res.send({ message: 'Hello API' });
-});
+app.use(
+  cors({
+    origin: '*',
+  })
+);
+
+app.use('/rockets', RocketsRouter);
 
 app.listen(port, host, () => {
   console.log(`[ ready ] http://${host}:${port}`);
