@@ -13,7 +13,7 @@ export async function RocketSeed(prisma: PrismaClient) {
       diameter: 1.68,
       mass: 30146,
       company: 'SpaceX',
-      country: 'United States',
+      country: 'Republic of the Marshall Islands',
       totalLandings: 0,
       totalLaunches: 5,
       totalReflights: 0,
@@ -24,7 +24,7 @@ export async function RocketSeed(prisma: PrismaClient) {
       name: 'Falcon 9',
       description:
         'Falcon 9 is a two-stage rocket designed and manufactured by SpaceX for the reliable and safe transport of satellites and the Dragon spacecraft into orbit.',
-      imgUrl: 'https://imgur.com/DaCfMsj.jpg',
+      imgUrl: 'https://farm1.staticflickr.com/929/28787338307_3453a11a77_b.jpg',
       isActive: true,
       firstFlight: new Date('2010-06-04'),
       height: 70,
@@ -42,7 +42,8 @@ export async function RocketSeed(prisma: PrismaClient) {
       name: 'Falcon Heavy',
       description:
         'With the ability to lift into orbit over 54 metric tons (119,000 lb)--a mass equivalent to a 737 jetliner loaded with passengers, crew, luggage and fuel--Falcon Heavy can lift more than twice the payload of the next closest operational vehicle, the Delta IV Heavy, at one-third the cost.',
-      imgUrl: 'https://imgur.com/DaCfMsj.jpg',
+      imgUrl:
+        'https://farm5.staticflickr.com/4599/38583829295_581f34dd84_b.jpg',
       isActive: true,
       firstFlight: new Date('2018-02-06'),
       height: 70,
