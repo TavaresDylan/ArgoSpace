@@ -14,9 +14,6 @@ export async function RocketSeed(prisma: PrismaClient) {
       mass: 30146,
       company: 'SpaceX',
       country: 'Republic of the Marshall Islands',
-      totalLandings: 0,
-      totalLaunches: 5,
-      totalReflights: 0,
     },
   });
   await prisma.rocket.create({
@@ -32,9 +29,9 @@ export async function RocketSeed(prisma: PrismaClient) {
       mass: 549054,
       company: 'SpaceX',
       country: 'United States',
-      totalLandings: 86,
-      totalLaunches: 127,
-      totalReflights: 45,
+      totalLandings: 282,
+      totalLaunches: 324,
+      totalReflights: 255,
     },
   });
   await prisma.rocket.create({
@@ -51,9 +48,9 @@ export async function RocketSeed(prisma: PrismaClient) {
       mass: 1420788,
       company: 'SpaceX',
       country: 'United States',
-      totalLandings: 86,
-      totalLaunches: 127,
-      totalReflights: 45,
+      totalLandings: 17,
+      totalLaunches: 9,
+      totalReflights: 14,
     },
   });
   await prisma.rocket.create({
@@ -70,9 +67,6 @@ export async function RocketSeed(prisma: PrismaClient) {
       mass: 1335000,
       company: 'SpaceX',
       country: 'United States',
-      totalLandings: 86,
-      totalLaunches: 127,
-      totalReflights: 45,
     },
   });
 }

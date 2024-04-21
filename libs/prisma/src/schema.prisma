@@ -25,9 +25,9 @@ model Rocket {
   mass           Float
   firstFlight    DateTime
   isActive       Boolean
-  totalLaunches  Int
-  totalLandings  Int
-  totalReflights Int
+  totalLaunches  Int?
+  totalLandings  Int?
+  totalReflights Int?
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 }
