@@ -5,17 +5,19 @@ import { getAuth } from 'firebase/auth';
 import { FirebaseApp } from '@argolight-space/firebase';
 
 onMounted(() => {
-  console.log('App mounted');
   getAuth(FirebaseApp).onAuthStateChanged((user) => {
     if (user !== null) {
-      console.log('User logged in');
-      console.log(user);
+      console.log('User logged in', user);
     }
   });
 });
 </script>
 
 <template>
-  <UserMenu />
-  <router-view />
+  <v-app>
+    <v-main>
+      <UserMenu />
+      <router-view />
+    </v-main>
+  </v-app>
 </template>

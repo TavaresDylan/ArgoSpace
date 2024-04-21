@@ -1,61 +1,68 @@
 <template>
-  <div id="rocket-list-container">
-    <h1>Rocket list</h1>
-    <button @click="back">Back</button>
-    <ul>
-      <li v-for="rocket in rockets" :key="rocket.id">
-        {{ rocket.name }} <br />
-        {{ rocket.description }}
-      </li>
-    </ul>
-  </div>
+  <v-container id="rocket-list-container">
+    <h1 class="text-h1 my-4">Rocket list</h1>
+    <v-row justify="center">
+      <v-col cols="12" md="6" lg="5" v-for="rocket in rockets" :key="rocket.id">
+        <v-card height="100%" class="d-flex flex-column">
+          <v-img cover height="340px" :src="rocket.imgUrl || undefined" />
+          <v-card-text
+            ><div class="my-2">
+              <v-chip :color="rocket.isActive ? 'green' : 'red'">{{
+                rocket.isActive ? 'Active' : 'Inactive'
+              }}</v-chip>
+            </div>
+            <span class="text-h4">{{ rocket.name }}</span>
+            <p>{{ rocket.description }}</p>
+            <div
+              id="stats"
+              class="d-flex justify-center align-center my-2"
+              v-if="
+                rocket.totalLandings &&
+                rocket.totalLaunches &&
+                rocket.totalReflights
+              "
+            >
+              <p class="text-h6 mx-2 d-flex flex-column align-center">
+                <span class="font-weight-bold">{{ rocket.totalLaunches }}</span>
+                Launches
+              </p>
+              <p class="text-h6 mx-2 d-flex flex-column align-center">
+                <span class="font-weight-bold">{{
+                  rocket.totalReflights
+                }}</span>
+                Reflights
+              </p>
+              <p class="text-h6 mx-2 d-flex flex-column align-center">
+                <span class="font-weight-bold">{{ rocket.totalLandings }}</span>
+                Landings
+              </p>
+            </div>
+          </v-card-text>
+          <v-card-actions
+            ><v-btn variant="tonal">See more</v-btn></v-card-actions
+          >
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-import { useRouter } from 'vue-router';
 import axios from 'axios';
+import { type Rocket } from '@prisma/client';
 
-const router = useRouter();
-const rockets = ref([]);
+const rockets = ref<Rocket[]>([]);
 
 onMounted(() => {
   axios
     .get('http://localhost:3000/rockets')
     .then((res) => {
       console.log(res);
-      rockets.value = res.data;
+      rockets.value = res.data as Rocket[];
     })
     .catch((err) => {
       console.log(err);
     });
 });
-
-const back = () => {
-  router.push('/login');
-};
 </script>
-
-<style scoped lang="css">
-#rocket-list-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-}
-h1 {
-  font-size: 3.4rem;
-  text-align: center;
-}
-button {
-  padding: 1rem;
-  font-size: 1.6rem;
-  text-transform: uppercase;
-  background-color: white;
-  color: black;
-  border-radius: 12px;
-  border: 2px solid black;
-  cursor: pointer;
-}
-</style>
