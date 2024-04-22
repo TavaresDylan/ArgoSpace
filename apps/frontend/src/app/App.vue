@@ -19,7 +19,7 @@ onMounted(() => {
 
 <template>
   <v-app>
-    <v-main>
+    <v-main class="d-flex flex-column">
       <UserMenu />
       <router-view />
     </v-main>
