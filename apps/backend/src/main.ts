@@ -2,6 +2,7 @@ import express, { type Express } from 'express';
 import 'reflect-metadata';
 import cors from 'cors';
 import { RocketsRouter } from './routes/rockets';
+import { AuthMiddleware } from './authMiddleware';
 
 const host = process.env.HOST ?? 'localhost';
 const port = process.env.PORT ? Number(process.env.PORT) : 3000;
@@ -13,7 +14,7 @@ app.use(
     origin: '*',
   })
 );
-
+app.use(AuthMiddleware);
 app.use('/rockets', RocketsRouter);
 
 app.listen(port, host, () => {
