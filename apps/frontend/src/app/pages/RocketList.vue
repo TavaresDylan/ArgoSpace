@@ -1,6 +1,7 @@
 <template>
   <v-container id="rocket-list-container h-screen">
     <h1 class="text-h1 my-4">Rocket list</h1>
+    <span v-if="fetchError" class="text-h6 text-red">{{ fetchError }}</span>
     <div
       v-if="isLoading"
       class="d-flex align-center justify-center flex-column"
