@@ -38,6 +38,7 @@ const logout = () => {
 
 <style scoped lang="css">
 #user-menu-container {
+  z-index: 1000;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;

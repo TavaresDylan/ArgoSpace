@@ -2,38 +2,40 @@
   <div class="d-flex flex-grow-1" id="login-container">
     <v-row align="center" justify="center" no-gutters>
       <v-col cols="10" sm="6" md="5" lg="3">
-        <h1 class="text-center mb-4">Login</h1>
-        <v-form @submit.prevent="login">
-          <p class="text-center my-4" id="form-error" v-show="formError">
-            {{ formError }}
+        <v-card id="signup-card" class="pa-8">
+          <h1 class="text-center mb-4">Login</h1>
+          <v-form @submit.prevent="login">
+            <p class="text-center my-4" id="form-error" v-show="formError">
+              {{ formError }}
+            </p>
+            <v-text-field
+              full-width
+              label="Email"
+              name="email"
+              variant="solo"
+              type="text"
+              v-model="email"
+              placeholder="xxxxxxx@xxx.xx"
+            />
+            <v-text-field
+              full-width
+              label="Password"
+              name="password"
+              variant="solo"
+              :type="showPassword ? 'text' : 'password'"
+              v-model="password"
+              placeholder="*******"
+              @click:append-inner="handleShowPassword()"
+              :append-inner-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
+            />
+            <v-btn class="w-100" variant="elevated" color="blue" type="submit"
+              >Login</v-btn
+            >
+          </v-form>
+          <p class="mt-6 text-center text-h6">
+            <router-link to="/singup">Create an account</router-link>
           </p>
-          <v-text-field
-            full-width
-            label="Email"
-            name="email"
-            variant="solo"
-            type="text"
-            v-model="email"
-            placeholder="xxxxxxx@xxx.xx"
-          />
-          <v-text-field
-            full-width
-            label="Password"
-            name="password"
-            variant="solo"
-            :type="showPassword ? 'text' : 'password'"
-            v-model="password"
-            placeholder="*******"
-            @click:append-inner="handleShowPassword()"
-            :append-inner-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
-          />
-          <v-btn class="w-100" variant="elevated" color="blue" type="submit"
-            >Login</v-btn
-          >
-        </v-form>
-        <p class="mt-6 text-center text-h6">
-          <router-link to="/singup">Create an account</router-link>
-        </p>
+        </v-card>
       </v-col>
     </v-row>
   </div>
@@ -85,5 +87,8 @@ h1 {
 #form-error {
   color: red;
   font-size: 1.6rem;
+}
+#signup-card {
+  background-color: rgba(0, 0, 0, 0.488);
 }
 </style>
