@@ -1,7 +1,18 @@
 <template>
-  <v-container id="rocket-list-container">
+  <v-container id="rocket-list-container h-screen">
     <h1 class="text-h1 my-4">Rocket list</h1>
-    <v-row justify="center">
+    <div
+      v-if="isLoading"
+      class="d-flex align-center justify-center flex-column"
+    >
+      <v-progress-circular
+        size="large"
+        indeterminate
+        color="primary"
+      ></v-progress-circular>
+      <p class="mt-2">Loading ...</p>
+    </div>
+    <v-row v-if="!isLoading" justify="center">
       <v-col cols="12" md="6" lg="5" v-for="rocket in rockets" :key="rocket.id">
         <v-card height="100%" class="d-flex flex-column">
           <v-img cover height="340px" :src="rocket.imgUrl || undefined" />
@@ -53,15 +64,27 @@ import axios from 'axios';
 import { type Rocket } from '@prisma/client';
 
 const rockets = ref<Rocket[]>([]);
+const isLoading = ref<boolean>(false);
+const fetchError = ref<string>('');
 
-onMounted(() => {
-  axios
-    .get('http://localhost:3000/rockets')
+onMounted(async () => {
+  isLoading.value = true;
+  await axios
+    .get('http://localhost:3000/rockets', {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    })
     .then((res) => {
-      console.log(res);
-      rockets.value = res.data as Rocket[];
+      setTimeout(() => {
+        rockets.value = res.data as Rocket[];
+        isLoading.value = false;
+      }, 2000);
     })
     .catch((err) => {
+      isLoading.value = false;
+      fetchError.value = 'An error occurred while fetching rockets';
       console.log(err);
     });
 });

@@ -7,7 +7,11 @@ import { FirebaseApp } from '@argolight-space/firebase';
 onMounted(() => {
   getAuth(FirebaseApp).onAuthStateChanged((user) => {
     if (user !== null) {
-      console.log('User logged in', user);
+      user.getIdToken().then((token) => {
+        localStorage.setItem('token', token);
+      });
+    } else {
+      localStorage.removeItem('token');
     }
   });
 });
