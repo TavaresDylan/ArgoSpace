@@ -1,12 +1,41 @@
 <template>
-  <div id="login-container">
-    <h1>Login</h1>
-    <form @submit.prevent="login">
-      <input type="text" v-model="email" placeholder="Email" />
-      <input type="password" v-model="password" placeholder="Password" />
-      <button type="submit">Login</button>
-    </form>
-    <router-link to="/singup">Create an account</router-link>
+  <div class="d-flex flex-grow-1" id="login-container">
+    <v-row align="center" justify="center" no-gutters>
+      <v-col cols="10" sm="6" md="5" lg="3">
+        <h1 class="text-center mb-4">Login</h1>
+        <v-form @submit.prevent="login">
+          <p class="text-center my-4" id="form-error" v-show="formError">
+            {{ formError }}
+          </p>
+          <v-text-field
+            full-width
+            label="Email"
+            name="email"
+            variant="solo"
+            type="text"
+            v-model="email"
+            placeholder="xxxxxxx@xxx.xx"
+          />
+          <v-text-field
+            full-width
+            label="Password"
+            name="password"
+            variant="solo"
+            :type="showPassword ? 'text' : 'password'"
+            v-model="password"
+            placeholder="*******"
+            @click:append-inner="handleShowPassword()"
+            :append-inner-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
+          />
+          <v-btn class="w-100" variant="elevated" color="blue" type="submit"
+            >Login</v-btn
+          >
+        </v-form>
+        <p class="mt-6 text-center text-h6">
+          <router-link to="/singup">Create an account</router-link>
+        </p>
+      </v-col>
+    </v-row>
   </div>
 </template>
 
@@ -18,18 +47,22 @@ import { FirebaseApp } from '@argolight-space/firebase';
 
 const email = ref<string>('');
 const password = ref<string>('');
+const formError = ref<string>('');
+const showPassword = ref<boolean>(false);
+
+const handleShowPassword = () => {
+  showPassword.value = !showPassword.value;
+};
 
 const router = useRouter();
 
 const login = () => {
   signInWithEmailAndPassword(getAuth(FirebaseApp), email.value, password.value)
-    .then((userCredential) => {
-      const user = userCredential.user;
-      console.log(user);
+    .then(() => {
       router.push('/rocket-list');
     })
-    .catch((error) => {
-      console.log(error);
+    .catch(() => {
+      formError.value = 'Invalid email or password';
     });
 };
 </script>
@@ -42,45 +75,15 @@ const login = () => {
   color: white;
 }
 #login-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  background-size: contain;
-  background-position: center center;
   background: url('https://www.spacex.com/static/images/falcon-9/F9_1.jpg')
     no-repeat;
+  background-size: cover;
 }
 h1 {
   font-size: 3.4rem;
 }
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  margin: 4.3rem;
-}
-input {
-  padding: 1rem;
+#form-error {
+  color: red;
   font-size: 1.6rem;
-  border-radius: 12px;
-  border: none;
-  background-color: white;
-  color: black;
-  width: 100%;
-  text-align: center;
-}
-button {
-  padding: 1rem;
-  font-size: 1.6rem;
-  text-transform: uppercase;
-  font-weight: 500;
-  background-color: white;
-  color: white;
-  border-radius: 12px;
-  border: none;
-  cursor: pointer;
-  background-color: rgb(9, 108, 178);
 }
 </style>
