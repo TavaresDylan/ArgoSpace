@@ -15,15 +15,19 @@
     </div>
     <v-row v-if="!isLoading" justify="center">
       <v-col cols="12" md="6" lg="5" v-for="rocket in rockets" :key="rocket.id">
-        <v-card height="100%" class="d-flex flex-column">
-          <v-img cover height="340px" :src="rocket.imgUrl || undefined" />
-          <v-card-text
-            ><div class="my-2">
+        <v-card
+          @click="handleCardClick(rocket.id)"
+          height="100%"
+          class="d-flex flex-column"
+        >
+          <v-img cover :src="rocket.imgUrl || undefined" />
+          <v-card-text>
+            <span class="text-h4">{{ rocket.name }}</span>
+            <div class="my-2">
               <v-chip :color="rocket.isActive ? 'green' : 'red'">{{
                 rocket.isActive ? 'Active' : 'Inactive'
               }}</v-chip>
             </div>
-            <span class="text-h4">{{ rocket.name }}</span>
             <p>{{ rocket.description }}</p>
             <div
               id="stats"
@@ -50,12 +54,15 @@
               </p>
             </div>
           </v-card-text>
-          <v-card-actions
-            ><v-btn variant="tonal">See more</v-btn></v-card-actions
-          >
         </v-card>
       </v-col>
     </v-row>
+    <RockerDetailsModal
+      @open-dialog="handleOpenDialog"
+      @close-dialog="handleCloseDialog"
+      :isActive="isDialogActive"
+      :rocketId="activeRocketId"
+    />
   </v-container>
 </template>
 
@@ -63,10 +70,27 @@
 import { onMounted, ref } from 'vue';
 import axios from 'axios';
 import { type Rocket } from '@prisma/client';
+import RockerDetailsModal from './components/RocketDetailsModal.vue';
 
 const rockets = ref<Rocket[]>([]);
 const isLoading = ref<boolean>(false);
 const fetchError = ref<string>('');
+const isDialogActive = ref<boolean>(false);
+const activeRocketId = ref<string>('');
+
+const handleCloseDialog = (): void => {
+  isDialogActive.value = false;
+};
+
+const handleOpenDialog = (): void => {
+  isDialogActive.value = false;
+};
+
+const handleCardClick = (rocketId: string): void => {
+  console.log(rocketId);
+  activeRocketId.value = rocketId;
+  isDialogActive.value = true;
+};
 
 onMounted(() => {
   isLoading.value = true;
