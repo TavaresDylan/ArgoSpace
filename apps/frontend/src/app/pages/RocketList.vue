@@ -68,25 +68,25 @@ const rockets = ref<Rocket[]>([]);
 const isLoading = ref<boolean>(false);
 const fetchError = ref<string>('');
 
-onMounted(async () => {
+onMounted(() => {
   isLoading.value = true;
-  await axios
-    .get('http://localhost:3000/rockets', {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
-    })
-    .then((res) => {
-      setTimeout(() => {
+  setTimeout(async () => {
+    await axios
+      .get('http://localhost:3000/rockets', {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      })
+      .then((res) => {
         rockets.value = res.data as Rocket[];
         isLoading.value = false;
-      }, 2000);
-    })
-    .catch((err) => {
-      isLoading.value = false;
-      fetchError.value = 'An error occurred while fetching rockets';
-      console.log(err);
-    });
+      })
+      .catch((err) => {
+        isLoading.value = false;
+        fetchError.value = 'An error occurred while fetching rockets';
+        console.log(err);
+      });
+  }, 2000);
 });
 </script>

@@ -1,7 +1,12 @@
 <template>
   <div id="user-menu-container" v-if="loggedInUser">
-    <span>{{ loggedInUser.email }}</span>
-    <button @click="logout">Logout</button>
+    <p>
+      Logged in as
+      <span class="font-weight-bold">{{ loggedInUser.email }}</span>
+    </p>
+    <v-btn color="red" variant="flat" class="my-2" @click="logout"
+      >Logout</v-btn
+    >
   </div>
 </template>
 
@@ -36,30 +41,16 @@ const logout = () => {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  align-items: center;
   padding: 0.5rem;
-  position: absolute;
+  position: fixed;
+  background-color: white;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
   right: 0;
   top: 0;
   border-bottom: 2px solid black;
   border-left: 2px solid black;
   border-radius: 0 0 0 12px;
   padding: 12px;
-}
-span {
-  text-align: end;
-}
-button {
-  align-self: center;
-  width: 120px;
-  margin: 0.2rem;
-  margin-top: 6px;
-  padding: 0.4rem;
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  background-color: rgb(239, 54, 54);
-  color: white;
-  border-radius: 12px;
-  border: 2px solid black;
-  cursor: pointer;
 }
 </style>
