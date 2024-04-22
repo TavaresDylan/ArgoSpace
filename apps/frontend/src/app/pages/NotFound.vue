@@ -1,8 +1,10 @@
 <template>
-  <div>
-    <h1>Page not found</h1>
-    <button @click="back">Back to home</button>
-  </div>
+  <v-container
+    class="d-flex flex-column align-center justify-center flex-grow-1 h-screen"
+  >
+    <h1 class="text-h1">Page not found</h1>
+    <v-btn class="mt-4" variant="outlined" @click="back">Back to home</v-btn>
+  </v-container>
 </template>
 
 <script setup lang="ts">
