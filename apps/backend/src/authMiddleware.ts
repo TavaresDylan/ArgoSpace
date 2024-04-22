@@ -1,14 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import * as firebase from 'firebase-admin';
-
-const firebaseParams = {};
-
-const firebaseApp = firebase.initializeApp({
-  credential: firebase.credential.cert(
-    firebaseParams as firebase.ServiceAccount
-  ),
-  databaseURL: 'https://argolightspace.firebaseio.com',
-});
+import { FirebaseAdminApp } from '@argolight-space/firebase-admin';
 
 export const AuthMiddleware = (
   req: Request,
@@ -16,11 +7,9 @@ export const AuthMiddleware = (
   next: NextFunction
 ) => {
   const bearerToken = req.headers.authorization;
-  console.log(bearerToken);
   if (bearerToken != null && bearerToken != '') {
     const token = bearerToken.replace('Bearer ', '');
-    firebaseApp
-      .auth()
+    FirebaseAdminApp.auth()
       .verifyIdToken(token)
       .then(() => {
         next();
