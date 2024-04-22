@@ -1,5 +1,4 @@
 import express, { type Express } from 'express';
-import 'reflect-metadata';
 import cors from 'cors';
 import { RocketsRouter } from './routes/rockets';
 import { AuthMiddleware } from './authMiddleware';
