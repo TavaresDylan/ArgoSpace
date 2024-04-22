@@ -20,7 +20,7 @@
           height="100%"
           class="d-flex flex-column"
         >
-          <v-img cover :src="rocket.imgUrl || undefined" />
+          <v-img cover :src="rocket.imageUrls[0].url" />
           <v-card-text>
             <span class="text-h4">{{ rocket.name }}</span>
             <div class="my-2">
@@ -69,10 +69,16 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import axios from 'axios';
-import { type Rocket } from '@prisma/client';
+import { type Prisma } from '@prisma/client';
 import RockerDetailsModal from './components/RocketDetailsModal.vue';
 
-const rockets = ref<Rocket[]>([]);
+const rockets = ref<
+  Prisma.RocketGetPayload<{
+    include: {
+      imageUrls: true;
+    };
+  }>[]
+>([]);
 const isLoading = ref<boolean>(false);
 const fetchError = ref<string>('');
 const isDialogActive = ref<boolean>(false);
@@ -103,7 +109,11 @@ onMounted(() => {
         },
       })
       .then((res) => {
-        rockets.value = res.data as Rocket[];
+        rockets.value = res.data as Prisma.RocketGetPayload<{
+          include: {
+            imageUrls: true;
+          };
+        }>[];
         isLoading.value = false;
       })
       .catch((err) => {

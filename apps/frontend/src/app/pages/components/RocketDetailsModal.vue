@@ -2,9 +2,17 @@
   <v-dialog
     :model-value="isActive"
     @update:model-value="handleModelValueUpdate"
-    max-width="500"
+    max-width="930px"
   >
     <v-card :title="rocket?.name">
+      <v-carousel hide-delimiters continuous show-arrows="hover">
+        <v-carousel-item
+          cover
+          :src="image.url"
+          v-for="image in rocket?.imageUrls"
+          :key="image.id"
+        ></v-carousel-item>
+      </v-carousel>
       <v-card-text>
         <p>
           First flight 🚀 : {{ parseDate(rocket?.firstFlight?.toString()) }}
@@ -40,7 +48,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Rocket } from '@prisma/client';
+import type { Prisma } from '@prisma/client';
 import axios from 'axios';
 import { onMounted, ref, computed, defineEmits, defineProps, watch } from 'vue';
 
@@ -67,7 +75,11 @@ const parseDate = computed(
   () => (date: string | undefined) => date && new Date(date).toDateString()
 );
 
-const rocket = ref<Rocket | null>(null);
+const rocket = ref<Prisma.RocketGetPayload<{
+  include: {
+    imageUrls: true;
+  };
+}> | null>(null);
 const isLoading = ref<boolean>(false);
 
 const fetchRocketDetails = async () => {
@@ -81,7 +93,11 @@ const fetchRocketDetails = async () => {
     })
     .then((res) => {
       console.log(res.data);
-      rocket.value = res.data as Rocket;
+      rocket.value = res.data as Prisma.RocketGetPayload<{
+        include: {
+          imageUrls: true;
+        };
+      }>;
     })
     .catch((err) => {
       console.error(err);
