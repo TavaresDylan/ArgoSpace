@@ -12,6 +12,6 @@ import { useRouter } from 'vue-router';
 
 const router = useRouter();
 const back = () => {
-  router.push('/login');
+  router.push('/rocket-list');
 };
 </script>
