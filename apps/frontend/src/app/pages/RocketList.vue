@@ -1,6 +1,10 @@
 <template>
-  <v-container class="d-flex flex-column flex-grow-1 h-screen">
-    <h1 class="text-h1 my-4">
+  <v-container
+    fluid
+    id="rocket-list-container"
+    class="d-flex flex-column flex-grow-1 h-100"
+  >
+    <h1 class="text-h1 my-4 text-white">
       R<span class="cursor-pointer" @click="handleEasterEgg">o</span>cket list
     </h1>
 
@@ -20,16 +24,16 @@
         <v-progress-circular
           size="large"
           indeterminate
-          color="primary"
+          color="secondary"
         ></v-progress-circular>
-        <p class="mt-2">Loading ...</p>
+        <p class="mt-2 text-white font-weight-bold">Loading ...</p>
       </div>
     </div>
 
     <v-row v-if="!isLoading && rockets.length > 0" justify="center">
       <v-col cols="12" md="6" lg="5" v-for="rocket in rockets" :key="rocket.id">
         <v-card
-          variant="outlined"
+          variant="elevated"
           @click="handleCardClick(rocket.id)"
           height="100%"
           class="d-flex flex-column"
@@ -130,6 +134,10 @@ onMounted(() => {
 </script>
 
 <style scoped lang="css">
+#rocket-list-container {
+  background: url('../../assets/Sprinkle.svg') no-repeat center center;
+  background-size: cover;
+}
 #easter-egg-img {
   position: fixed;
   bottom: 0;
