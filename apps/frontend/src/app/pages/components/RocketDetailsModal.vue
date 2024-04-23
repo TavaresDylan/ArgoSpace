@@ -4,16 +4,23 @@
     @update:model-value="handleModelValueUpdate"
     max-width="930px"
   >
-    <v-card class="overflow-hidden" :title="rocket?.name">
-      <v-btn
-        id="close-btn"
-        size="x-small"
-        variant="flat"
-        color="grey"
-        class="ma-2"
-        icon="mdi-close"
-        @click="handleCloseDialog"
-      ></v-btn>
+    <v-card rounded="xl" class="overflow-hidden">
+      <v-card-title class="text-h5 pa-4 font-weight-bold d-flex justify-center">
+        {{ rocket?.name }}
+        <v-chip class="ml-4" :color="rocket?.isActive ? 'green' : 'red'">{{
+          rocket?.isActive ? 'Active' : 'Inactive'
+        }}</v-chip>
+        <v-btn
+          id="close-btn"
+          size="x-small"
+          variant="flat"
+          color="grey"
+          class="mx-4 mt-4"
+          icon="mdi-close"
+          @click="handleCloseDialog"
+        ></v-btn
+      ></v-card-title>
+
       <v-carousel
         v-if="!isLoading"
         hide-delimiters
@@ -27,15 +34,16 @@
           :key="image.id"
         ></v-carousel-item>
       </v-carousel>
-      <v-card-text>
+      <v-card-text class="pa-8">
         <v-row>
-          <v-col>
+          <v-col cols="12" sm="6">
             <span class="font-weight-bold text-h6">Infos</span>
             <p>
-              First flight 🚀 : {{ parseDate(rocket?.firstFlight?.toString()) }}
+              First flight <v-icon>mdi-rocket</v-icon> :
+              {{ parseDate(rocket?.firstFlight?.toString()) }}
             </p>
             <p>
-              Country : {{ rocket?.country }}
+              Country <v-icon>mdi-flag</v-icon> : {{ rocket?.country }}
               {{
                 rocket?.country === 'United States'
                   ? '🇺🇸'
@@ -44,13 +52,18 @@
                   : '❔'
               }}
             </p>
-            <p>Company : {{ rocket?.company }}</p>
+            <p>Company <v-icon>mdi-home</v-icon> : {{ rocket?.company }}</p>
           </v-col>
-          <v-col>
+          <v-col cols="12" sm="6">
             <span class="font-weight-bold text-h6">Specs</span>
-            <p>Diameter : {{ rocket?.diameter }} (m)</p>
-            <p>Mass : {{ rocket?.mass }} (kg)</p>
-            <p>Height : {{ rocket?.height }} (m)</p>
+            <p>
+              Diameter <v-icon>mdi-diameter</v-icon> :
+              {{ rocket?.diameter }} (m)
+            </p>
+            <p>Mass <v-icon>mdi-weight</v-icon> : {{ rocket?.mass }} (kg)</p>
+            <p>
+              Height <v-icon>mdi-arrow-up</v-icon> : {{ rocket?.height }} (m)
+            </p>
           </v-col>
           <v-col
             v-if="
@@ -60,7 +73,9 @@
             "
             cols="12"
           >
-            <div class="d-flex justify-space-around align-center my-2">
+            <div
+              class="d-flex justify-space-around align-center my-2 bg-black w-100 rounded-xl pa-2"
+            >
               <p class="text-h6 mx-2 d-flex flex-column align-center">
                 <span class="font-weight-bold">{{
                   rocket?.totalLaunches
