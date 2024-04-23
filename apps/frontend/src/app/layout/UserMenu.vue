@@ -1,5 +1,5 @@
 <template>
-  <div id="user-menu-container" v-if="loggedInUser">
+  <div class="d-none d-md-flex" id="user-menu-container" v-if="loggedInUser">
     <p>
       Logged in as
       <span class="font-weight-bold">{{ loggedInUser.email }}</span>
@@ -7,6 +7,33 @@
     <v-btn color="red" variant="flat" class="my-2" @click="logout"
       >Logout</v-btn
     >
+  </div>
+  <div
+    id="mobile-user-menu-container"
+    class="d-flex d-md-none ma-4"
+    v-if="loggedInUser"
+  >
+    <v-menu location="bottom">
+      <template v-slot:activator="{ props }">
+        <v-btn v-bind="props" icon>
+          <v-icon>mdi-account-circle</v-icon>
+        </v-btn>
+      </template>
+
+      <v-list class="px-2">
+        <p>
+          Logged in as
+          <span class="font-weight-bold">{{ loggedInUser.email }}</span>
+        </p>
+        <v-list-item class="text-center" variant="flat" color="red">
+          <v-list-item-title
+            ><v-btn color="red" variant="flat" class="my-2" @click="logout"
+              >Logout</v-btn
+            ></v-list-item-title
+          >
+        </v-list-item>
+      </v-list>
+    </v-menu>
   </div>
 </template>
 
@@ -53,5 +80,12 @@ const logout = () => {
   border-left: 2px solid black;
   border-radius: 0 0 0 12px;
   padding: 12px;
+}
+
+#mobile-user-menu-container {
+  z-index: 1000;
+  right: 0;
+  top: 0;
+  position: fixed;
 }
 </style>
