@@ -4,7 +4,16 @@
     @update:model-value="handleModelValueUpdate"
     max-width="930px"
   >
-    <v-card :title="rocket?.name">
+    <v-card class="overflow-hidden" :title="rocket?.name">
+      <v-btn
+        id="close-btn"
+        size="x-small"
+        variant="flat"
+        color="grey"
+        class="ma-2"
+        icon="mdi-close"
+        @click="handleCloseDialog"
+      ></v-btn>
       <v-carousel
         v-if="!isLoading"
         hide-delimiters
@@ -19,38 +28,72 @@
         ></v-carousel-item>
       </v-carousel>
       <v-card-text>
-        <p>
-          First flight 🚀 : {{ parseDate(rocket?.firstFlight?.toString()) }}
-        </p>
-        <p>
-          Country : {{ rocket?.country }}
-          {{
-            rocket?.country === 'United States'
-              ? '🇺🇸'
-              : rocket?.country === 'Republic of the Marshall Islands'
-              ? '🇲🇭'
-              : '❔'
-          }}
-        </p>
-        <p>Company : {{ rocket?.company }}</p>
-
-        <p>
-          <span>Specs</span> Diameter : {{ rocket?.diameter }} (m)
-          <br />
-          Mass : {{ rocket?.mass }} (kg)
-          <br />
-          Height : {{ rocket?.height }} (m)
-        </p>
+        <v-row>
+          <v-col>
+            <span class="font-weight-bold text-h6">Infos</span>
+            <p>
+              First flight 🚀 : {{ parseDate(rocket?.firstFlight?.toString()) }}
+            </p>
+            <p>
+              Country : {{ rocket?.country }}
+              {{
+                rocket?.country === 'United States'
+                  ? '🇺🇸'
+                  : rocket?.country === 'Republic of the Marshall Islands'
+                  ? '🇲🇭'
+                  : '❔'
+              }}
+            </p>
+            <p>Company : {{ rocket?.company }}</p>
+          </v-col>
+          <v-col>
+            <span class="font-weight-bold text-h6">Specs</span>
+            <p>Diameter : {{ rocket?.diameter }} (m)</p>
+            <p>Mass : {{ rocket?.mass }} (kg)</p>
+            <p>Height : {{ rocket?.height }} (m)</p>
+          </v-col>
+          <v-col
+            v-if="
+              rocket?.totalLandings &&
+              rocket?.totalLaunches &&
+              rocket?.totalReflights
+            "
+            cols="12"
+          >
+            <div class="d-flex justify-space-around align-center my-2">
+              <p class="text-h6 mx-2 d-flex flex-column align-center">
+                <span class="font-weight-bold">{{
+                  rocket?.totalLaunches
+                }}</span>
+                Launches
+              </p>
+              <p class="text-h6 mx-2 d-flex flex-column align-center">
+                <span class="font-weight-bold">{{
+                  rocket?.totalReflights
+                }}</span>
+                Reflights
+              </p>
+              <p class="text-h6 mx-2 d-flex flex-column align-center">
+                <span class="font-weight-bold">{{
+                  rocket?.totalLandings
+                }}</span>
+                Landings
+              </p>
+            </div>
+          </v-col>
+        </v-row>
       </v-card-text>
-
-      <v-card-actions>
-        <v-spacer></v-spacer>
-
-        <v-btn text="Close Dialog" @click="handleCloseDialog"></v-btn>
-      </v-card-actions>
     </v-card>
   </v-dialog>
 </template>
+
+<style scoped lang="css">
+#close-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+</style>
 
 <script setup lang="ts">
 import type { Prisma } from '@prisma/client';

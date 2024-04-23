@@ -40,30 +40,6 @@
               }}</v-chip>
             </div>
             <p>{{ rocket.description }}</p>
-            <div
-              id="stats"
-              class="d-flex justify-center align-center my-2"
-              v-if="
-                rocket.totalLandings &&
-                rocket.totalLaunches &&
-                rocket.totalReflights
-              "
-            >
-              <p class="text-h6 mx-2 d-flex flex-column align-center">
-                <span class="font-weight-bold">{{ rocket.totalLaunches }}</span>
-                Launches
-              </p>
-              <p class="text-h6 mx-2 d-flex flex-column align-center">
-                <span class="font-weight-bold">{{
-                  rocket.totalReflights
-                }}</span>
-                Reflights
-              </p>
-              <p class="text-h6 mx-2 d-flex flex-column align-center">
-                <span class="font-weight-bold">{{ rocket.totalLandings }}</span>
-                Landings
-              </p>
-            </div>
           </v-card-text>
         </v-card>
       </v-col>
