@@ -5,7 +5,12 @@
     max-width="930px"
   >
     <v-card :title="rocket?.name">
-      <v-carousel hide-delimiters continuous show-arrows="hover">
+      <v-carousel
+        v-if="!isLoading"
+        hide-delimiters
+        continuous
+        show-arrows="hover"
+      >
         <v-carousel-item
           cover
           :src="image.url"
