@@ -98,6 +98,10 @@
           </v-col>
         </v-row>
       </v-card-text>
+      <v-expansion-panels variant="default" class="w-100 ma-0">
+        <v-expansion-panel title="Description" :text="rocket?.description">
+        </v-expansion-panel>
+      </v-expansion-panels>
     </v-card>
   </v-dialog>
 </template>
