@@ -1,6 +1,8 @@
 <template>
   <v-container class="d-flex flex-column flex-grow-1 h-screen">
-    <h1 class="text-h1 my-4">Rocket list</h1>
+    <h1 class="text-h1 my-4">
+      R<span class="cursor-pointer" @click="handleEasterEgg">o</span>cket list
+    </h1>
 
     <div class="d-flex flex-column align-center justify-center h-100">
       <span
@@ -27,6 +29,7 @@
     <v-row v-if="!isLoading && rockets.length > 0" justify="center">
       <v-col cols="12" md="6" lg="5" v-for="rocket in rockets" :key="rocket.id">
         <v-card
+          variant="outlined"
           @click="handleCardClick(rocket.id)"
           height="100%"
           class="d-flex flex-column"
@@ -50,6 +53,7 @@
       :isActive="isDialogActive"
       :rocketId="activeRocketId"
     />
+    <v-img id="easter-egg-img" v-if="isEasterEggActive" :src="MuskPng"></v-img>
   </v-container>
 </template>
 
@@ -58,6 +62,7 @@ import { onMounted, ref } from 'vue';
 import axios from 'axios';
 import { type Prisma } from '@prisma/client';
 import RockerDetailsModal from './components/RocketDetailsModal.vue';
+import MuskPng from '../../assets/musk.png';
 
 const rockets = ref<
   Prisma.RocketGetPayload<{
@@ -70,6 +75,7 @@ const isLoading = ref<boolean>(false);
 const fetchError = ref<string>('');
 const isDialogActive = ref<boolean>(false);
 const activeRocketId = ref<string>('');
+const isEasterEggActive = ref<boolean>(false);
 
 const handleCloseDialog = (): void => {
   isDialogActive.value = false;
@@ -82,6 +88,13 @@ const handleOpenDialog = (): void => {
 const handleCardClick = (rocketId: string): void => {
   activeRocketId.value = rocketId;
   isDialogActive.value = true;
+};
+
+const handleEasterEgg = (): void => {
+  isEasterEggActive.value = true;
+  setTimeout(() => {
+    isEasterEggActive.value = false;
+  }, 2000);
 };
 
 const fetchRockets = async () => {
@@ -115,3 +128,13 @@ onMounted(() => {
   fetchRockets();
 });
 </script>
+
+<style scoped lang="css">
+#easter-egg-img {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 200px;
+  z-index: 1000;
+}
+</style>
