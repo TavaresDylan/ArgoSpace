@@ -1,19 +1,30 @@
 <template>
-  <v-container id="rocket-list-container h-screen">
+  <v-container class="d-flex flex-column flex-grow-1 h-screen">
     <h1 class="text-h1 my-4">Rocket list</h1>
-    <span v-if="fetchError" class="text-h6 text-red">{{ fetchError }}</span>
-    <div
-      v-if="isLoading"
-      class="d-flex align-center justify-center flex-column"
-    >
-      <v-progress-circular
-        size="large"
-        indeterminate
-        color="primary"
-      ></v-progress-circular>
-      <p class="mt-2">Loading ...</p>
+
+    <div class="d-flex flex-column align-center justify-center h-100">
+      <span
+        v-if="fetchError"
+        class="text-h6 text-red d-flex flex-column align-center justify-center my-4"
+        >{{ fetchError }}
+        <v-btn @click="fetchRockets" variant="flat" color="blue"
+          >Retry</v-btn
+        ></span
+      >
+      <div
+        v-if="isLoading"
+        class="d-flex align-center justify-center flex-column"
+      >
+        <v-progress-circular
+          size="large"
+          indeterminate
+          color="primary"
+        ></v-progress-circular>
+        <p class="mt-2">Loading ...</p>
+      </div>
     </div>
-    <v-row v-if="!isLoading" justify="center">
+
+    <v-row v-if="!isLoading && rockets.length > 0" justify="center">
       <v-col cols="12" md="6" lg="5" v-for="rocket in rockets" :key="rocket.id">
         <v-card
           @click="handleCardClick(rocket.id)"
@@ -93,12 +104,11 @@ const handleOpenDialog = (): void => {
 };
 
 const handleCardClick = (rocketId: string): void => {
-  console.log(rocketId);
   activeRocketId.value = rocketId;
   isDialogActive.value = true;
 };
 
-onMounted(() => {
+const fetchRockets = async () => {
   isLoading.value = true;
   setTimeout(async () => {
     await axios
@@ -114,13 +124,18 @@ onMounted(() => {
             imageUrls: true;
           };
         }>[];
-        isLoading.value = false;
       })
-      .catch((err) => {
-        isLoading.value = false;
+      .catch((err: Error) => {
         fetchError.value = 'An error occurred while fetching rockets';
-        console.log(err);
+        console.error(err);
+      })
+      .finally(() => {
+        isLoading.value = false;
       });
   }, 2000);
+};
+
+onMounted(() => {
+  fetchRockets();
 });
 </script>
