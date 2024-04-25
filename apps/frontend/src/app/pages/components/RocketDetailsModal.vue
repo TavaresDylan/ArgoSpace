@@ -117,7 +117,7 @@
 <script setup lang="ts">
 import type { Prisma } from '@prisma/client';
 import axios from 'axios';
-import { onMounted, ref, computed, defineEmits, defineProps, watch } from 'vue';
+import { onMounted, ref, computed, watch } from 'vue';
 
 const emit = defineEmits(['open-dialog', 'close-dialog']);
 
