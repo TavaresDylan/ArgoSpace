@@ -26,21 +26,23 @@ export default function axiosSetUp() {
       return res;
     },
     async function (err: AxiosError) {
-      const token = getAuth(FirebaseApp).currentUser?.getIdToken();
-      if (!token) {
-        return Promise.reject(err);
-      }
-
-      try {
-        const refreshedToken = await token;
-        localStorage.setItem('token', refreshedToken);
-        return axios(err.config ? err.config : {});
-      } catch (error) {
-        if (err.request.status === 401) {
-          getAuth(FirebaseApp).signOut();
-          Router.push('/login');
+      if (err.request.status === 401) {
+        const token = getAuth(FirebaseApp).currentUser?.getIdToken();
+        if (!token) {
+          return Promise.reject(err);
         }
-        return Promise.reject(err);
+
+        try {
+          const refreshedToken = await token;
+          localStorage.setItem('token', refreshedToken);
+          return axios(err.config ? err.config : {});
+        } catch (error) {
+          if (err.request.status === 401) {
+            getAuth(FirebaseApp).signOut();
+            Router.push('/login');
+          }
+          return Promise.reject(err);
+        }
       }
     }
   );
