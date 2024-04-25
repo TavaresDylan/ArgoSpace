@@ -1,4 +1,5 @@
 import './styles.css';
+import './fontLoader.module.css';
 
 import { createApp } from 'vue';
 import App from './app/App.vue';

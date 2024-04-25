@@ -6,7 +6,7 @@
   >
     <v-card rounded="xl" class="overflow-hidden">
       <v-card-title class="text-h5 pa-4 font-weight-bold d-flex justify-center">
-        {{ rocket?.name }}
+        <h2>{{ rocket?.name }}</h2>
         <v-chip class="ml-4" :color="rocket?.isActive ? 'green' : 'red'">{{
           rocket?.isActive ? 'Active' : 'Inactive'
         }}</v-chip>

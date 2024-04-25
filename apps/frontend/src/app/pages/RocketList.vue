@@ -40,13 +40,13 @@
         >
           <v-img cover :src="rocket.imageUrls[0].url" />
           <v-card-text>
-            <span class="text-h4">{{ rocket.name }}</span>
+            <h2 class="text-h4">{{ rocket.name }}</h2>
             <div class="my-2">
               <v-chip :color="rocket.isActive ? 'green' : 'red'">{{
                 rocket.isActive ? 'Active' : 'Inactive'
               }}</v-chip>
             </div>
-            <p>{{ rocket.description }}</p>
+            <p class="text-body-1">{{ rocket.description }}</p>
           </v-card-text>
         </v-card>
       </v-col>
