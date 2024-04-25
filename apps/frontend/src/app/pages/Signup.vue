@@ -7,7 +7,12 @@
           <p class="text-center my-4" id="form-error" v-show="formError">
             {{ formError }}
           </p>
-          <v-form fast-fail ref="form" @submit.prevent="signup">
+          <v-form
+            class="d-flex ga-4 flex-column"
+            fast-fail
+            ref="form"
+            @submit.prevent="signup"
+          >
             <v-text-field
               full-width
               required
@@ -18,7 +23,11 @@
               :rules="[rules.email, rules.required]"
               v-model="email"
               placeholder="xxxxxxx@xxx.xx"
-            />
+            >
+              <template v-slot:message="{ message }">
+                <p class="text-red text-body-1">{{ message }}</p>
+              </template>
+            </v-text-field>
             <v-text-field
               full-width
               required
@@ -35,7 +44,11 @@
               placeholder="*******"
               @click:append-inner="handleShowPassword()"
               :append-inner-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
-            />
+            >
+              <template v-slot:message="{ message }">
+                <p class="text-red text-body-1">{{ message }}</p>
+              </template>
+            </v-text-field>
             <v-text-field
               full-width
               required
@@ -48,7 +61,11 @@
               placeholder="*******"
               @click:append-inner="handleShowPassword()"
               :append-inner-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
-            />
+            >
+              <template v-slot:message="{ message }">
+                <p class="text-red text-body-1">{{ message }}</p>
+              </template>
+            </v-text-field>
             <v-btn class="w-100" color="blue" variant="elevated" type="submit"
               >Signup</v-btn
             >

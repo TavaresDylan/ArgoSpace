@@ -4,7 +4,7 @@
       <v-col cols="10" sm="6" md="5" lg="3">
         <v-card id="signup-card" class="pa-8">
           <h1 class="text-center mb-4">Login</h1>
-          <v-form @submit.prevent="login">
+          <v-form class="d-flex ga-4 flex-column" @submit.prevent="login">
             <p class="text-center my-4" id="form-error" v-show="formError">
               {{ formError }}
             </p>
