@@ -1,7 +1,7 @@
 import { initializeApp, FirebaseOptions } from 'firebase/app';
 
 const firebaseConfig: FirebaseOptions = {
-  apiKey: process.env['FIREBASE_API_KEY'],
+  apiKey: import.meta.env['VITE_FIREBASE_API_KEY'],
   authDomain: 'argolightspace.firebaseapp.com',
   projectId: 'argolightspace',
   storageBucket: 'argolightspace.appspot.com',
