@@ -117,6 +117,7 @@ const fetchRockets = async () => {
             imageUrls: true;
           };
         }>[];
+        fetchError.value = '';
       })
       .catch((err: Error) => {
         fetchError.value = 'An error occurred while fetching rockets';
