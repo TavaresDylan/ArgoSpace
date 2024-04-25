@@ -152,14 +152,8 @@ const isLoading = ref<boolean>(false);
 const fetchRocketDetails = async () => {
   isLoading.value = true;
   await axios
-    .get(`http://localhost:3000/rockets/${props.rocketId}`, {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
-    })
+    .get(`/rockets/${props.rocketId}`)
     .then((res) => {
-      console.log(res.data);
       rocket.value = res.data as Prisma.RocketGetPayload<{
         include: {
           imageUrls: true;

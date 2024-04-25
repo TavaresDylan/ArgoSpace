@@ -105,12 +105,7 @@ const fetchRockets = async () => {
   isLoading.value = true;
   setTimeout(async () => {
     await axios
-      .get('http://localhost:3000/rockets', {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-      })
+      .get('/rockets')
       .then((res) => {
         rockets.value = res.data as Prisma.RocketGetPayload<{
           include: {
