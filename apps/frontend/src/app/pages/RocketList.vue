@@ -31,7 +31,14 @@
     </div>
 
     <v-row v-if="!isLoading && rockets.length > 0" justify="center">
-      <v-col cols="12" md="6" lg="5" v-for="rocket in rockets" :key="rocket.id">
+      <v-col
+        cols="12"
+        sm="8"
+        md="6"
+        lg="5"
+        v-for="rocket in rockets"
+        :key="rocket.id"
+      >
         <v-card
           variant="elevated"
           @click="handleCardClick(rocket.id)"
