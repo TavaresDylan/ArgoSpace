@@ -18,7 +18,7 @@ Requirements :
 
 (Instead of using `npx` command you can install Nx globally `npm add --global nx@latest` if you want)
 
-### Installalion
+### Installation
 
 1. **Clone the repository**
 
@@ -39,7 +39,7 @@ Requirements :
 
 5. **Provide env variables values of the .env file**
 
-   - **DATABASE_URL** have the following format `DATABASE_URL=mysql://<USRE>:<PASSWORD>@<HOST>:<PORT>/<DATABASE_NAME>`
+   - **DATABASE_URL** have the following format `DATABASE_URL=mysql://<USER>:<PASSWORD>@<HOST>:<PORT>/<DATABASE_NAME>`
    - All other vars related to Firebase are private : [contact-me](mailto:tavares.dylan03@gmail.com) and i'll send it to you if it's not already done.
 
 6. **Generate the prisma client**
@@ -51,7 +51,7 @@ Requirements :
 
 7. **Migrate the database**
 
-   (This will generate the table and seed it)
+   (This will generate the tables and seed it)
 
    - `npx nx run prisma:migrate`
    - Or use directly the Nx console extension by running the "migrate" command
@@ -64,6 +64,7 @@ Requirements :
    - Or use directly the Nx console extension by running the "serve" command of the backend project.
 
 9. **Run the frontend app**
+
    (The frontend app will run on [localhost:4200](http://localhost:4200) by default)
 
    - `npx nx run frontend:serve`
