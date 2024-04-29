@@ -56,6 +56,8 @@ Requirements :
    - `npx nx run prisma:migrate`
    - Or use directly the Nx console extension by running the "migrate" command
 
+   ℹ️ **If the database have not been seed correctly by the previous command you can run `npx nx run prisma:seed`**
+
 8. **Run the backend app**
 
    (The backend app will run on [localhost:3000](http://localhost:3000) by default)
