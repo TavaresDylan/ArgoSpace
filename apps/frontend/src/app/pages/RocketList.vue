@@ -8,7 +8,10 @@
       R<span class="cursor-pointer" @click="handleEasterEgg">o</span>cket list
     </h1>
 
-    <div class="d-flex flex-column align-center justify-center h-100">
+    <div
+      v-if="fetchError || isLoading"
+      class="d-flex flex-column align-center justify-center h-100"
+    >
       <span
         v-if="fetchError"
         class="text-h6 text-red d-flex flex-column align-center justify-center my-4"
@@ -29,6 +32,19 @@
         <p class="mt-2 text-white font-weight-bold">Loading ...</p>
       </div>
     </div>
+
+    <v-row
+      justify="center"
+      align="center"
+      v-if="!isLoading && rockets.length === 0"
+    >
+      <v-col class="d-flex flex-column align-center" cols="12">
+        <p class="text-h6 text-white text-center">
+          No rockets found. Please try again later.
+        </p>
+        <v-btn @click="fetchRockets" variant="flat" color="blue">Retry</v-btn>
+      </v-col>
+    </v-row>
 
     <v-row v-if="!isLoading && rockets.length > 0" justify="center">
       <v-col
