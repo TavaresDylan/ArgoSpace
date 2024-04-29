@@ -36,7 +36,7 @@
     <v-row
       justify="center"
       align="center"
-      v-if="!isLoading && rockets.length === 0"
+      v-if="!isLoading && !fetchError && rockets.length === 0"
     >
       <v-col class="d-flex flex-column align-center" cols="12">
         <p class="text-h6 text-white text-center">
